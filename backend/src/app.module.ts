@@ -16,11 +16,11 @@ import { TasksModule } from './tasks/tasks.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres' as const,
-        host: config.get('DB_HOST', 'localhost'),
+        host: config.get<string>('DB_HOST', 'localhost'),
         port: Number(config.get('DB_PORT', 5432)),
-        username: config.get('DB_USERNAME', 'postgres'),
-        password: config.get('DB_PASSWORD', 'postgres'),
-        database: config.get('DB_DATABASE', 'project_management'),
+        username: config.get<string>('DB_USERNAME', 'postgres'),
+        password: config.get<string>('DB_PASSWORD', 'postgres'),
+        database: config.get<string>('DB_DATABASE', 'project_management'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: false, // migrations only, never auto-sync schema
         autoLoadEntities: true,
