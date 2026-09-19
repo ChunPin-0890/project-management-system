@@ -1,0 +1,130 @@
+/* Global styles + design tokens ported from the "Bitware Tracker" design system.
+   Tokens are CSS custom properties, like a theme object in React or a shared ResourceDictionary in WPF. */
+:root {
+  --surface-page: #f4f5f7;
+  --surface: #ffffff;
+  --surface-hover: #f0f1f3;
+  --surface-sidebar: #fbfbfc;
+  --border: #e2e5ea;
+  --border-strong: #cfd3da;
+  --ink: #1a1d23;
+  --ink-secondary: #5b6270;
+  --ink-muted: #9aa0aa;
+  --primary: #2760e0;
+  --primary-hover: #1f4fc0;
+  --primary-surface: #eaf0fd;
+  --on-primary: #ffffff;
+  --danger: #d6423a;
+  --danger-hover: #b8362f;
+  --on-danger: #ffffff;
+  --focus-ring: #2760e0;
+  --status-todo-bg: #eef0f3;
+  --status-todo-text: #4b5563;
+  --status-inprogress-bg: #e5ebfc;
+  --status-inprogress-text: #2547c7;
+  --status-completed-bg: #e3f5e9;
+  --status-completed-text: #1a7a43;
+  --error-bg: #fdecec;
+  --error-text: #b8362f;
+  --error-border: #f3b9b4;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+
+  --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 12px 32px rgba(16, 24, 40, 0.16);
+
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --nav-height: 56px;
+  --sidebar-width: 220px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font: 400 14px/21px var(--font);
+  color: var(--ink);
+  background: var(--surface-page);
+}
+
+h1 { font-size: 26px; line-height: 34px; font-weight: 600; margin: 0; }
+h2 { font-size: 18px; line-height: 26px; font-weight: 600; margin: 0; }
+.body-sm { font-size: 13px; line-height: 18px; }
+label, .label { font-size: 13px; line-height: 18px; font-weight: 600; }
+.caption { font-size: 12px; line-height: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+/* Buttons: one .btn-primary per screen; everything else is .btn (secondary); destructive is .btn-danger */
+.btn {
+  font: 600 14px/20px var(--font);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) { background: var(--surface-hover); }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+.btn-danger { background: var(--danger); border-color: var(--danger); color: var(--on-danger); }
+.btn-danger:hover:not(:disabled) { background: var(--danger-hover); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Form fields */
+.field { display: flex; flex-direction: column; gap: var(--space-1); margin-bottom: var(--space-4); }
+.input {
+  font: 400 14px/21px var(--font);
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  width: 100%;
+}
+.field-error { color: var(--error-text); font-size: 13px; line-height: 18px; }
+.banner-error {
+  background: var(--error-bg); color: var(--error-text);
+  border: 1px solid var(--error-border); border-radius: var(--radius-sm);
+  padding: var(--space-3); margin-bottom: var(--space-4);
+}
+
+/* Cards / table container */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+}
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border);
+  font: 600 12px/16px var(--font); text-transform: uppercase; letter-spacing: 0.02em;
+  color: var(--ink-secondary); white-space: nowrap;
+}
+td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+
+/* Status badges: always bg+text pair with the status word */
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: var(--radius-sm);
+  font: 600 12px/16px var(--font); white-space: nowrap;
+}
+.badge-todo, .badge-on_hold { background: var(--status-todo-bg); color: var(--status-todo-text); }
+.badge-in_progress, .badge-active { background: var(--status-inprogress-bg); color: var(--status-inprogress-text); }
+.badge-completed { background: var(--status-completed-bg); color: var(--status-completed-text); }
+
+/* Modal */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(16, 24, 40, 0.4);
+  display: flex; align-items: center; justify-content: center; padding: var(--space-4); z-index: 100;
+}
+.modal {
+  background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+  width: 100%; max-width: 480px; padding: var(--space-5); max-height: 90vh; overflow-y: auto;
+}
+.modal h2 { margin-bottom: var(--space-4); }
+.modal-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-4); }
+
+.page-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); flex-wrap: wrap; }
