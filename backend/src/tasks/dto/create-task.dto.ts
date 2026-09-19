@@ -1,0 +1,21 @@
+// Request DTO for POST /projects/:id/tasks.
+import { IsDateString, IsEnum, IsOptional, IsString, IsUUID, MinLength } from 'class-validator';
+import { TaskStatus } from '../entities/task.entity';
+
+export class CreateTaskDto {
+  @IsString()
+  @MinLength(1)
+  title: string;
+
+  @IsOptional()
+  @IsEnum(TaskStatus)
+  status?: TaskStatus;
+
+  @IsOptional()
+  @IsUUID()
+  assigneeId?: string;
+
+  @IsOptional()
+  @IsDateString()
+  dueDate?: string;
+}
