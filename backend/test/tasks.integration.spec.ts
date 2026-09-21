@@ -18,6 +18,7 @@ describe('Tasks filtering + membership (integration, real Postgres)', () => {
   let memberToken: string;
   let nonMemberToken: string;
   let projectId: string;
+  let userIds: string[] = [];
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -41,6 +42,7 @@ describe('Tasks filtering + membership (integration, real Postgres)', () => {
       ['Integration Test Project', 'Test Client', 'ACTIVE', '2026-01-01'],
     );
     projectId = project.id;
+    userIds = [member.id, nonMember.id];
     await dataSource.query(`INSERT INTO project_members (project_id, user_id) VALUES ($1, $2)`, [
       projectId,
       member.id,
@@ -69,6 +71,7 @@ describe('Tasks filtering + membership (integration, real Postgres)', () => {
     await dataSource.query('DELETE FROM tasks WHERE project_id = $1', [projectId]);
     await dataSource.query('DELETE FROM project_members WHERE project_id = $1', [projectId]);
     await dataSource.query('DELETE FROM projects WHERE id = $1', [projectId]);
+    await dataSource.query('DELETE FROM users WHERE id = ANY($1)', [userIds]);
     await app.close();
   });
 

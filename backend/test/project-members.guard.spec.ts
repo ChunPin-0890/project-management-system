@@ -23,6 +23,17 @@ describe('ProjectMembersGuard', () => {
     });
   });
 
+  it('checks the project id, not the task id, on nested task routes', async () => {
+    const membersRepo = { findOne: jest.fn().mockResolvedValue({ id: 'm1' }) } as any;
+    const guard = new ProjectMembersGuard(membersRepo);
+    const ctx = makeContext({ projectId: 'project-1', id: 'task-9' }, { userId: 'user-1' });
+
+    await guard.canActivate(ctx);
+    expect(membersRepo.findOne).toHaveBeenCalledWith({
+      where: { projectId: 'project-1', userId: 'user-1' },
+    });
+  });
+
   it('throws 403 (ForbiddenException) when no membership row exists', async () => {
     const membersRepo = { findOne: jest.fn().mockResolvedValue(null) } as any;
     const guard = new ProjectMembersGuard(membersRepo);

@@ -16,7 +16,7 @@ export class ProjectMembersGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const projectId: string = request.params.id || request.params.projectId;
+    const projectId: string = request.params.projectId || request.params.id;
     const userId: string = request.user?.userId;
 
     if (!projectId || !userId) {

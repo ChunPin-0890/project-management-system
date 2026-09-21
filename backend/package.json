@@ -57,6 +57,7 @@
     "testRegex": "(/test/.*|(\\.|/)(spec|integration))\\.ts$",
     "transform": { "^.+\\.(t|j)s$": "ts-jest" },
     "collectCoverageFrom": ["src/**/*.(t|j)s"],
+    "testTimeout": 30000,
     "testEnvironment": "node"
   }
 }

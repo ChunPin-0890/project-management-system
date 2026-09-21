@@ -29,6 +29,8 @@ docker compose exec backend npx typeorm-ts-node-commonjs migration:revert -d src
 
 ### Local development without Docker for the apps
 
+Docker's Postgres is published on host port **5433** (not 5432) so it can't collide with a Postgres already installed on your machine; `.env.example` already uses 5433.
+
 ```bash
 docker compose up -d postgres
 cd backend && cp .env.example .env && npm install

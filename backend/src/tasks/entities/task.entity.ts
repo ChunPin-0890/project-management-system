@@ -27,7 +27,7 @@ export class Task {
   @Column({ type: 'enum', enum: TaskStatus, enumName: 'task_status_enum', default: TaskStatus.TODO })
   status: TaskStatus;
 
-  @Column({ name: 'assignee_id', nullable: true })
+  @Column({ name: 'assignee_id', type: 'uuid', nullable: true })
   assigneeId: string | null;
 
   @Column({ name: 'due_date', type: 'date', nullable: true })
